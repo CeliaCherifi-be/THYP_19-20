@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+        <title>Statistiques globales</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  
+</head>
+<body>
+
+<div class="w3-container w3-teal">
+    <h1>Statistiques globales</h1>
+      </div>
+      <div class="w3-container w3-black w3-animate-top">
+            <h3>Besoins</h3> 
+          </div>
+          
+          <div id="L" class="w3-container w3-display-container city">
+             <div id= "contenaire" class="w3-container w3-margin  w3-leftbar w3-border-green ">
+                    <p></p>
+                        <div></div>
+                                   </div>
+                                  </div>                                                                                                  </div>
+                      </div> 
+          </div>
+       
+          <div id="P" class="w3-container w3-display-container city" style="display:none">
+           
+            <div id= "contenaire2" class="w3-container w3-margin  w3-leftbar w3-border-green ">
+                    <p></p>
+                        <div></div>
+                                   </div>
+                                  </div>  
+          </div>
+       
+          </div>
+      <br>
+      <div class="w3-container w3-margin">
+      <div class="w3-card-4 ">
+            <div  class="w3-container w3-center ">
+        </div> 
+            
+     
+             <!-- 
+              <div id= "bar" class="w3-container w3-margin w3-leftbar">
+              <div class="w3-light-grey w3-round">
+                <div class="w3-container w3-round w3-blue" style="width:25%">25%</div>
+              </div>
+            </div>
+
+-->
+            
+<!--
+      <div  class="w3-card-4">
+      <div  class="w3-panel w3-leftbar w3-border-teal">
+            
+            <div class="w3-light-grey w3-round">
+                    <p id="myspan">Left-aligned label:</p>
+
+                    <div class="w3-light-grey">
+                    <div id="myBar" class="w3-container w3-green" style="width:20%"></div>
+                    </div>
+                          </div>
+                    <div id="progressBar" class="w3-light-grey w3-round">
+
+                    
+                           <span >exemple</span>
+                            <div class="w3-container w3-round w3-blue" style="width:25%">25%</div>
+                        
+                        </div>
+                        -->
+           
+          
+         
+        <script>
+
+                //mon code
+                var answ = {"Pas besoin":1, "Besoin d'approfondissement":5, "Besoin urgent":10, "je ne connais pas du tout":1,"je connais un peu":5,"je connais bien":10,"je suis expert(e)":20};
+                let besoins= [];
+                let expertsBesoin = {'id':[],'nom':[]}
+                var url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRPYNknmIr5_bU7GfiJtuS_b9fGae7HZwcjAiMoAC24fLzIfxRtXQySMu3E95D3M595D3DYT7NUtvzt/pub?gid=760811187&single=true&output=csv'            
+                    var q = d3.queue()
+                    .defer(d3.csv, url)
+                    .awaitAll(function(error, results) {
+                      if (error) throw error;
+                      setData(results);
+                    });
+                
+                    function setData(data){
+                       dataForm = data[0];
+                       dataForm.forEach(function(d, j){
+                            d.reponses = {'besoins':[],'competences':[],'outils':[]};
+                            for (let i in d) {
+                                var prop = i.substring(i.indexOf("[")+1,i.indexOf("]")); 
+                                var v = d[i];
+                                var n = answ[v];
+                                if(i.indexOf("besoins")>0){
+                                    d.reponses.besoins.push({'prop':prop,'importance':n,'expression':v,'id':j});
+                                }
+                               							
+                            }
+                        });
+                
+                        dataForm.forEach(etudiant => {
+                         etudiant.reponses.besoins.forEach((besoin, index) => {
+                          if(besoin.importance){
+                            switch(besoin.importance){
+                                case 1:
+                                besoins.push(0);
+                                break;
+                                
+                                case 5:
+                                besoins.push(50); 
+                                break;
+                
+                                case 10:
+                                besoins.push(100);
+                                expertsBesoin.id.push(index);
+                                break;
+                                
+                                default:
+                                besoins.push(0);
+                                break;
+                            }
+                          }
+                        });
+                    });
+                   
+                    let Bes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                    dataForm[0].reponses.besoins.forEach((besoin, besIndex) =>{
+                    for(let i = besIndex; i<besoins.length; i += dataForm[0].reponses.besoins.length){
+                        Bes[besIndex] += besoins[i];
+                    }
+                    Bes[besIndex] = Math.round((Bes[besIndex])/(dataForm.length));
+                    
+                    });
+                   
+          //besoins
+          //merci à https://www.d3indepth.com/enterexit/   
+          
+                    d3.select('#contenaire').selectAll("div")
+                   .data(Bes)
+                   .enter().append("p")
+                  .text(function(d, i) {return ''+dataForm[0].reponses.besoins[i].prop})
+                   .append("div").attr("class", "w3-light-grey w3-round") .append('div')  .attr("class", "w3-container w3-round w3-teal w3-tiny w3-center w3-animate-opacity ")
+                   .attr("style", function(d, i) {return "width: " + d + "%"})
+                   .text(function(d, i) {return  d + "%"});
+          
+                }
+                
+        
+
+     /* var elem = document.getElementById("myBar"); 
+    elem.style.width = 40;
+    document.getElementById("myspan").innerText = "texte";
+    elem.inn = sp2;
+
+  var bar = d3.select('#progressBar').data(Comp).enter()
+          
+             .append('span')
+            .text()
+            .append('span')
+            .text()
+            .append('div').attr('class', "w3-container w3-round w3-blue")
+            .attr('style', );
+
+function openCity(cityName) {
+  var i;
+  var x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  document.getElementById(cityName).style.display = "block";  
+}             
+                   
+*/
+ </script>                   
+     
+</body>
+</html>

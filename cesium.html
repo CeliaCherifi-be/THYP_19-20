@@ -1,0 +1,138 @@
+<html>
+
+	<head>
+		<title>Cesium</title>
+		<script type="text/javascript" src="cesium/Apps/Sandcastle/Sandcastle-header.js"></script>
+		<script type="text/javascript" src="cesium/Build/CesiumUnminified/Cesium.js" ></script>
+	</head>
+
+	<style>
+		@import url(cesium/Apps/Sandcastle/templates/bucket.css);
+	</style>
+	 <style>
+             
+    </style>
+	<style>
+		#menu{
+		  float:left ;
+		  width:20px; 
+		height:20px; 
+			background-color: red;
+		}
+		</style>
+		
+		<style>
+		  #texte{
+			float:left ;
+		  }
+		  </style>
+		
+		<style>
+		  #menu1{
+			float:left ;
+			width:20px; 
+		  height:20px; 
+			background-color: blue;
+		  }
+		  </style>
+
+<div id="menu"></div>
+<div id="texte">Les pays que j'ai visit&eacute</div>
+<br>
+<br>
+<div id="menu1"></div>
+<div id="texte1">Les pays que j'aimerais visiter</div>
+<br>
+
+<div id="cesiumContainer" class="fullscreen"></div>
+	
+	<div id="loadingOverlay"><h1>Loading...</h1></div>
+	<div id="toolbar"></div>
+	
+
+	<script id="cesium_sandcastle_script">
+	
+		Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyYTEyNzdmZS02ODM2LTQ4MGMtOTk3MS00ZDUwMDkzODNiNjMiLCJpZCI6MTc3NzcsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NzI4MTcyNjd9.5qOZVp19Hs6x6QgLmWz4k2hL09yXzVW2ALlSRP2b6wQ'		
+		var viewer = new Cesium.Viewer('cesiumContainer');
+		
+		
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/China.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.BLUE.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+		
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/Australia.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.BLUE.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+		
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/Guinea.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.BLUE.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+		
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/Greece.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.RED.withAlpha(0.5),
+			strokeWidth: 3
+		
+		}));
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/France.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.RED.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/Algeria.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.RED.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/Spain.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.RED.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/Tunisia.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.RED.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/Indonesia.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.BLUE.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/Japan.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.BLUE.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/Malaysia.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.BLUE.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/South Africa.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.BLUE.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+
+		viewer.dataSources.add(Cesium.GeoJsonDataSource.load('cesium/visitedCountries/United States of America.json', {
+			stroke: Cesium.Color.HOTPINK,
+			fill: Cesium.Color.BLUE.withAlpha(0.5),
+			strokeWidth: 3
+		}));
+
+		
+		
+	</script>
+	
+	
+</html>
